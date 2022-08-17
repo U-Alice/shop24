@@ -1,6 +1,6 @@
 const { connection } = require("../utils/database")
 
-module.export.getAllDrinks = ()=>{
+module.exports.getAllDrinks = ()=>{
     return async (req, res)=>{
         let query = `SELECT * from drinks`
         const drinks = connection.query(query, (err)=>{
