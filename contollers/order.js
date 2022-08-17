@@ -20,8 +20,28 @@ module.exports.createOrder = () => {
   };
 };
 
-module.exports.getPaid = ()=>{
+module.exports.getPaidOrders = ()=>{
     return async (req, res)=>{
-        query = `SELECT * from orders where paid = ${true} ;`
+        let query = `SELECT * from orders where paid = ${true} limit 10;`
+        const result = connection.query(query, (err)=>{
+            res.json({message: 'Internal server Error'}).status(500)
+            if(err) throw err
+        })
+        res.json({message: 'Successfully retrieved paid orders', orders: result}).status(200)
+    }
+}
+
+module.exports.getTopfive = ()=>{
+    return async (req, res)=>{
+    let query = `SELECT * from orders `
+    }
+}
+module.exports.completeOrder = ()=>{
+    return async (req, res)=>{
+        let query = `UPDATE order SET completed = ${true} where orderId = ${req.params.orderId};`
+        const result = connection.query(query, (err)=>{
+            if(err) throw err
+        })
+        res.json({message: 'Order completed'})
     }
 }
