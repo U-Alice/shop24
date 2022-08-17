@@ -22,6 +22,10 @@ module.exports.mostConsumed  = ()=>{
 }
 module.exports.getById = ()=>{
     return async (req, res)=>{
-        let
+        let query = `SELECT * from drinks WHERE id = ${req.params.id};`
+        const drink = connection.query(query, (err)=>{
+            if (err) throw err;
+        res.json({message: 'Retrieved drink successfully', drink: drink})
+    })
     }
 }
