@@ -19,14 +19,10 @@ module.exports.getClients = () => {
 module.exports.getClientById = () => {
   return async (req, res) => {
     try{
-
       let qry = `SELECT * from clients where Id =${req.params.clientId} `;
       let result = connection.query(qry, (err, result, fields) => {
-        
-        res.json({message : 'Internal server error', err: err.message}).status(500)
-        throw err
+        res.json({message: 'client retrieval successfull', client: result}).status(200)
       });
-      res.json({message: 'client retrieval successfull', client: result}).status(200)
     }catch(err){
       console.log(err)
     }
