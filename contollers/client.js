@@ -28,5 +28,16 @@ module.exports.getClientById = () => {
     }
   };
 };
+module.exports.getTransporter = ()=>{
+  return async (req, res)=>{
+    let qry = `SELECT * from cargo WHERE location = (SELECT location from clients where clientId = ${req.params.clientId})`
+    connection.query(qry, (err, result)=>{
+      if(err){
+        res.json({message: 'Failed to load data'}.status(404))
+      }
+      res.json({message: 'Loaded data successfully' , data: result}).status(200)
+    })
+  }
+}
 
 
