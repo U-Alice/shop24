@@ -36,7 +36,7 @@ module.exports.createOrder = () => {
 
 module.exports.getPaidOrders = () => {
   return async (req, res) => {
-    let query = `SELECT * from orders where paid = 1 limit 10;`;
+    let query = `SELECT clients.firstName, orders.orderId, cargo.name, cargo.location  from orders INNER JOIN clients ON clients.clientId = orders.clientId Inner JOIN cargo ON cargo.companyId = orders.transporterId WHERE paid = 1  limit 10`;
     const result = connection.query(query, (err, result) => {
       if (err) throw err;
       console.log(result)

@@ -19,9 +19,6 @@ connection.connect((err)=>{
     OrdersRouter(app)
     cargoRouter(app)
     drinksRouter(app)
-// app.use('/drinks', drinksRouter)
-// app.use('/cargo',cargoRouter     )
-// app.use('/order', OrdersRouter)
 app.get('/home', (req, res)=>{
     res.json({message: 'Welcome to the home page '})
 })
