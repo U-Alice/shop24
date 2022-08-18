@@ -1,8 +1,10 @@
-const { Router } = require('express')
 const { getClients, getClientById } = require('../contollers/client')
 
-module.exports.clientRouter = require('express').Router()
 
-Router.get('/getClients', getClients())
-Router.get('/getById',getClientById() )
+const Router = require('express').Router()
+module.exports.clientRouter = (app)=>{
+        Router.get('/getClients', getClients())
+        Router.get('/getById/:clientId',getClientById())
+    app.use('/clients',Router)
+}
 // Router.post('/')

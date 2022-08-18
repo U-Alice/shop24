@@ -1,5 +1,6 @@
-const { getAllCargo, getById } = require('../contollers/cargo')
-
-module.exports.cargoRouter = require('express').Router()
-cargoRouter.get('getAll', getAllCargo())
-cargoRouter.get('/getById', getById())
+const { getAllCargo, getById } = require('../contollers/cargo');
+const Router = require('express').Router();
+module.exports.cargoRouter = () => {
+  Router.get('getAll', getAllCargo());
+  Router.get('/getById', getById());
+};
