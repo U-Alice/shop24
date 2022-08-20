@@ -19,7 +19,7 @@ module.exports.createOrder = () => {
         connection.query(itemId, (err, result) => {
           if (err) throw err;
           connection.query(
-            `INSERT INTO orders (orderId, clientId,itemID, quantity,transporterID) values('1',  ${req.params.clientId},${result[0].itemId},${req.body.quantity}, ${transporterID});`,
+            `INSERT INTO orders (orderId, clientId,itemID, quantity,transporterID) values('2',  ${req.params.clientId},${result[0].itemId},${req.body.quantity}, ${transporterID});`,
             (err, result) => {
               if (err) throw err;
               console.log(result);

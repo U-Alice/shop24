@@ -1,3 +1,4 @@
+const { Query } = require('@nestjs/common');
 const { connection } = require('../utils/database');
 module.exports.getAllCargo = () => {
   return async (req, res) => {
@@ -31,3 +32,20 @@ module.exports.getById = () => {
     );
   };
 };
+
+module.exports.getTransported = ()=>{
+    return async =(req, res)=>{
+        console.log(req.query)
+        let query =` SELECT itemId from orders where transporterId = (SELECT companyId from cargo where name = '${req.params.transporter}')
+        AND DATE_FORMAT(addedAt,"%Y-%m-%d" ) BETWEEN '${req.query.fromDate}' AND  '${req.query.toDate}'`
+        connection.query(query, (err, result)=>{
+            if(err){
+                res.json({message: 'Error occured while retrieving data'}).status(404)
+                throw err
+            }
+            res.json({message: 'Data retrieved successfully', result: result}).status(200)
+        })
+
+        
+    }
+}

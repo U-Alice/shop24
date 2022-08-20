@@ -17,12 +17,12 @@ module.exports.getAllDrinks = () => {
 module.exports.mostConsumed = () => {
   return async (req, res) => {
     let query = `SELECT * from drinks ORDER by ordered desc limit 5`;
-    const drinks = connection.query(query, (err) => {
+    const drinks = connection.query(query, (err, drinks) => {
       if (err) throw err;
+      res
+        .json({ message: 'Retrieved most consumed drinks', drinks: drinks })
+        .status(200);
     });
-    res
-      .json({ message: 'Retrieved most consumed drinks', drinks: drinks })
-      .status(200);
   };
 };
 module.exports.getById = () => {
