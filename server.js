@@ -1,4 +1,3 @@
-const { APP_FILTER } = require('@nestjs/core');
 const express =require('express');
 const  {cargoRouter}  = require('./routes/cargo');
 const  {clientRouter}  = require('./routes/client');
