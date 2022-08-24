@@ -1,4 +1,3 @@
-const { Query } = require('@nestjs/common');
 const { connection } = require('../utils/database');
 module.exports.getAllCargo = () => {
   return async (req, res) => {
