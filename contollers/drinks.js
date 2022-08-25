@@ -66,19 +66,19 @@ module.exports.getAvailable = () => {
         throw err;
       }
       connection.query(
-        `SELECT * FROM cargo where location ='${getClientLocation()}'`,
-        (err, cargo) => {
+        `SELECT * FROM Cargo where location ='${getClientLocation()}'`,
+        (err, Cargo) => {
           if (err) {
             throw err
             return res
               .json({ message: 'Failed to retrieve data', err: err.message })
               .status(500);
           }
-          console.log(cargo)
+          console.log(Cargo)
           res.json({
             message: 'Retrieved available drinks successfully',
             data: result,
-            nearestCargoCompany: cargo,
+            nearestCargoCompany: Cargo,
           });
         },
       );

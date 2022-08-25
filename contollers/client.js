@@ -19,7 +19,7 @@ module.exports.getClients = () => {
 module.exports.getClientById = () => {
   return async (req, res) => {
     try{
-      let qry = `SELECT * from clients where Id =${req.params.clientId} `;
+      let qry = `SELECT * from clients where clientId =${req.params.clientId} `;
       let result = connection.query(qry, (err, result, fields) => {
         res.json({message: 'client retrieval successfull', client: result}).status(200)
       });
@@ -30,7 +30,7 @@ module.exports.getClientById = () => {
 };
 module.exports.getTransporter = ()=>{
   return async (req, res)=>{
-    let qry = `SELECT * from cargo WHERE location = (SELECT location from clients where clientId = ${req.params.clientId})`
+    let qry = `SELECT * from Cargo WHERE location = (SELECT location from clients where clientId = ${req.params.clientId})`
     connection.query(qry, (err, result)=>{
       if(err){
         res.json({message: 'Failed to load data'}.status(404))

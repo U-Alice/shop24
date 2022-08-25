@@ -3,31 +3,30 @@ const { connection } = require('../utils/database');
 
 module.exports.createOrder = () => {
   return async (req, res) => {
+  req.body = req.body.data
     try {
       let transporterID;
       connection.query(
-        `SELECT companyId from  cargo where name = '${req.body.transporterName}' `,
+        `SELECT CompanyId from  Cargo where companyName = '${req.body.transporterName}' `,
         (err, result) => {
           if (err) throw err;
+
           console.log(result)
-          transporterID = result[0].companyId;
+          transporterID = result[0].CompanyId;
         },
-      );
-      let itemsArray = req.body.items;
-      itemsArray.map((item) => {
-        let itemId = `SELECT itemId from drinks where itemName = '${item}'`;
-        connection.query(itemId, (err, result) => {
+      );  
+        let itemId = `SELECT itemId from drinks where itemName = '${req.body.item}'`;
+        connection.query(itemId, (err, result1) => {
           if (err) throw err;
           connection.query(
-            `INSERT INTO orders (orderId, clientId,itemID, quantity,transporterID) values('2',  ${req.params.clientId},${result[0].itemId},${req.body.quantity}, ${transporterID});`,
+            `INSERT INTO orders ( clientId,itemID, quantity,transporterID) values(  ${req.params.clientId},${result1[0].itemId},${req.body.quantity}, ${transporterID});`,
             (err, result) => {
               if (err) throw err;
               console.log(result);
-              res.json({ message: 'Order created successfully', result });
+              res.json({ message: 'Order created successfully', result });  
             },
           );
         });
-      });
     } catch (err) {
       console.log(err);
     }
@@ -36,7 +35,7 @@ module.exports.createOrder = () => {
 
 module.exports.getPaidOrders = () => {
   return async (req, res) => {
-    let query = `SELECT clients.firstName, orders.orderId, cargo.name, cargo.location  from orders INNER JOIN clients ON clients.clientId = orders.clientId Inner JOIN cargo ON cargo.companyId = orders.transporterId WHERE paid = 1  limit 10`;
+    let query = `SELECT clients.firstName, orders.orderId, Cargo.name, Cargo.location  from orders INNER JOIN clients ON clients.clientId = orders.clientId Inner JOIN Cargo ON Cargo.companyId = orders.transporterId WHERE paid = 1  limit 10`;
     const result = connection.query(query, (err, result) => {
       if (err) throw err;
       console.log(result)
