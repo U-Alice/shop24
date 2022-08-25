@@ -5,6 +5,8 @@ module.exports.OrdersRouter = (app)=>{
     Router.get('/paidOrders/topTen' , getPaidOrders())
     Router.post('/completeOrder/:orderId', completeOrder())
     Router.post('/createOrder/:clientId', createOrder())
+    Router.get('/getOrders', createOrder())
+
     app.use('/orders', Router)
 }
 

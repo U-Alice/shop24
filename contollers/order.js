@@ -49,6 +49,11 @@ module.exports.getPaidOrders = () => {
 module.exports.getTopfive = () => {
   return async (req, res) => {
     let query = `SELECT * from orders `;
+    connection.query(query, (err, result)=>{
+
+      res.json({message: 'Successfully retrieved data' ,data: result})
+    })
+    
   };
 };
 
